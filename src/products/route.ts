@@ -63,4 +63,32 @@ router.post("/new", function (req, res, next) {
 
 })
 
+
+router.put("/:pid", function (req, res, next) {
+    try {
+        productBody.parse(req.body)
+
+        const { id,
+            title,
+            description,
+            price,
+            discountPercentage,
+            rating,
+            stock,
+            brand,
+            category,
+            thumbnail,
+            images } = req.body;
+        const currentIndex = products.findIndex(cid => cid.id === +req.params.pid)
+        if (currentIndex === -1) return res.status(404).send("not found")
+        products[currentIndex] = { ...products[currentIndex], ...req.body }
+        return res.json({ messagE: "product changed", newP: products[currentIndex] })
+    } catch (error) {
+        const { errors } = error
+        console.log(errors[0].path[0] + "=> " + errors[0].message)
+        res.status(400).json({ error: errors[0].path[0] + "=> " + errors[0].message })
+    }
+
+})
+
 export default router;
