@@ -9,3 +9,5 @@
 2. POST /Cart - return new cart id
 3. POST Product - add product to cart { productId:1, cardId:2 }
 4. GET /Cart/:id - get all cart products
+
+<!-- [{ id:"cart_id , products:[] }] -->
