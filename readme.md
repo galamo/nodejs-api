@@ -11,3 +11,17 @@
 4. GET /Cart/:id - get all cart products
 
 <!-- [{ id:"cart_id , products:[] }] -->
+
+<!-- 
+POST /cart
+
+id
+
+ -->
+
+ <!-- /Cart/:id 
+ id not found ?
+ not authoirzed
+ input validation
+
+  -->

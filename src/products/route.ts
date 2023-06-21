@@ -64,6 +64,7 @@ router.post("/new", function (req, res, next) {
 })
 
 
+
 router.put("/:pid", function (req, res, next) {
     try {
         productBody.parse(req.body)
