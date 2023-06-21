@@ -15,9 +15,9 @@ const signupSchema = zod.object({
 
 
 
-router.post("/login", function (req, res, next) {
-    return res.json()
-})
+// router.post("/login", function (req, res, next) {
+//     return res.json()
+// })
 
 function middleware(req, res, next) {
     try {
