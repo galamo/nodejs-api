@@ -5,6 +5,7 @@ import zod from "zod"
 const router = express.Router();
 
 const users = [];
+export const tokens = []
 
 const signupSchema = zod.object({
     email: zod.string(),
@@ -13,13 +14,31 @@ const signupSchema = zod.object({
     gender: zod.enum(["male", "female", "them"])
 })
 
+const loginSchema = zod.object({
+    email: zod.string(),
+    password: zod.string(),
 
+})
 
-// router.post("/login", function (req, res, next) {
-//     return res.json()
-// })
+function middlewareLogin(req, res, next) {
+    try {
+        loginSchema.parse(req.body)
+        return next()
+    } catch (error) {
+        return res.status(400).send("Error")
+    }
+}
 
-function middleware(req, res, next) {
+router.post("/login", middlewareLogin, function (req, res, next) {
+    const { email, password } = req.body
+    const user = users.find(currentUser => currentUser.password === password && currentUser.email === email)
+    if (!user) return res.status(401).send("User is unauthorized")
+    const token = Date.now();
+    tokens.push(token)
+    res.json({ token: token.toString() })
+})
+
+function middlewareSignIn(req, res, next) {
     try {
         signupSchema.parse(req.body)
         return next()
@@ -28,7 +47,7 @@ function middleware(req, res, next) {
     }
 }
 
-router.post("/sign-up", middleware, function (req, res, next) {
+router.post("/sign-up", middlewareSignIn, function (req, res, next) {
     const user = users.find(u => u.email === req.body?.email?.toLowerCase())
     if (user) return res.status(409).send("user already exist")
     users.push(req.body)

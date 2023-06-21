@@ -2,8 +2,9 @@
 import express from "express"
 import products from "./data"
 import zod from "zod"
+// import { tokens } from "../auth/route";
 const router = express.Router();
-
+// tokens
 const productBody = zod.object({
     id: zod.number(),
     title: zod.string().max(20).optional(),
@@ -22,6 +23,7 @@ router.get("/", function (req, res, next) {
 router.get("/:id", function (req, res, next) {
     return res.json(products) // filter by id
 })
+
 
 router.post("/new", function (req, res, next) {
 
