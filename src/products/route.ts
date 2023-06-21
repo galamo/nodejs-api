@@ -52,7 +52,7 @@ router.post("/new", function (req, res, next) {
             thumbnail,
             images
         })
-        return res.send("product added")
+        return res.json({ message: "Product Added!" })
     } catch (error) {
         const { errors } = error
         console.log(errors[0].path[0] + "=> " + errors[0].message)
