@@ -24,7 +24,7 @@ function middleware(req, res, next) {
         signupSchema.parse(req.body)
         return next()
     } catch (error) {
-        return res.status(400)
+        return res.status(400).send("Error")
     }
 }
 
