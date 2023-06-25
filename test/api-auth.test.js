@@ -1,7 +1,12 @@
 const { expect } = require("chai")
 const axios = require("axios")
 
+
+
 describe("POST /auth/sign-up", function () {
+
+    
+
     it("Create new user Success ", async function () {
         const dummyUser = {
             email: `email${Date.now()}@gmail.com`,
