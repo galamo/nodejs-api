@@ -1,9 +1,12 @@
 
 import express from "express"
-
+import jsonwebtoken from "jsonwebtoken"
 import zod from "zod"
-const router = express.Router();
+import dotenv from "dotenv"
+dotenv.config()
 
+
+const router = express.Router();
 const users = [];
 export const tokens = []
 
@@ -33,9 +36,8 @@ router.post("/login", middlewareLogin, function (req, res, next) {
     const { email, password } = req.body
     const user = users.find(currentUser => currentUser.password === password && currentUser.email === email)
     if (!user) return res.status(401).send("User is unauthorized")
-    const token = Date.now();
-    tokens.push(token)
-    res.json({ token: token.toString() })
+    const signedToken = jsonwebtoken.sign({ userName: email, role: "admin" }, process.env.SECRET)
+    res.json({ token: signedToken })
 })
 
 function middlewareSignIn(req, res, next) {
